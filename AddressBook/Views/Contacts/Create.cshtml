@@ -1,0 +1,148 @@
+﻿@model AddressBook.Models.CreateEditContactViewModel
+
+@{
+    Layout = "~/Views/Contacts/ContactsBase.cshtml";
+    ViewBag.Title = "Create";
+}
+<div class="row">
+
+    @using (Html.BeginForm("Create", "Contacts", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col s12" }))
+    {
+        <div data-bind="with: contact">
+            <div class="row">
+                <div class="col s12">
+                    @Html.AntiForgeryToken()
+                    <h4>Create New Person</h4>
+                    <hr/>
+                    @Html.ValidationSummary(true, "", new { @class = "red-text" })
+                    @Html.HiddenFor(model => model.Id)
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    @Html.EditorFor(model => model.FullName, new {htmlAttributes = new {@class = "validate", @data_bind = "value: fullName"}})
+                    @Html.LabelFor(model => model.FullName)
+                    @Html.ValidationMessageFor(model => model.FullName, "", new {@class = "red-text"})
+                </div>
+                <div class="input-field col s6">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "validate", @data_bind = "value: lastName" } })
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "red-text" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    @Html.LabelFor(model => model.Title)
+                    @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@data_bind = "value: title"}})
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "red-text" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@data_bind = "value: email"}})
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "red-text" })
+                </div>
+            </div>
+
+            <div>
+                <h4>Phone Numbers</h4>
+                <div class="row" data-bind="foreach: phoneNumbers">
+                    <div class="input-field col s4">
+                        <select data-bind="attr: {id: 'phoneNumberType-' + $index(), name: 'PhoneNumbers[' + $index() + '].PhoneNumberTypeId'}, options: $root.phoneNumberTypes, optionsText: 'name', optionsValue: 'id', value: phoneNumberTypeId"
+                                class="browser-default"></select>
+                    </div>
+                    <div class="input-field col s6">
+                        <label data-bind="attr: {for: 'phoneNumber-' + $index() }">Phone Number</label>
+                        <input type="text" data-bind="attr: {id: 'phoneNumber-' + $index(), name: 'PhoneNumbers[' + $index() + '].PhoneNumber'  }, value: phoneNumber" />
+                    </div>
+                    <div class="col s2">
+                        <a href="#" data-bind="click: $root.removePhone">Remove</a>
+                    </div>
+                </div>
+                <a href="#" data-bind="click: $root.addPhone">Add Another Phone Number</a>
+            </div>
+            <div>
+                <h4>Web Links</h4>
+                <div class="row" data-bind="foreach: webLinks">
+                    <div class="input-field col s4">
+                        <select data-bind="attr: {id: 'webLinkType-' + $index(), name: 'WebLinks[' + $index() + '].WebLinkTypeId'}, options: $root.webLinkTypes, optionsText: 'name', optionsValue: 'id', value: webLinkTypeId"
+                                class="browser-default"></select>
+                    </div>
+                    <div class="input-field col s6">
+                        <label data-bind="attr: {for: 'url-' + $index() }">URL</label>
+                        <input type="text" data-bind="attr: {id: 'url-' + $index(), name: 'WebLinks[' + $index() + '].Url'  }, value: url" />
+                    </div>
+                    <div class="col s2">
+                        <a href="#" data-bind="click: $root.removeWebLink">Remove</a>
+                    </div>
+                </div>
+                <a href="#" data-bind="click: $root.addWebLink">Add Another Link</a>
+            </div>
+            <div class="row">
+                <h4>Picture</h4>
+
+                <div class="file-field input-field col s12 m10">
+                    <input class="file-path validate" type="text"/>
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" name="File"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    @Html.LabelFor(model => model.OrganisationId, "Organisation")
+                    @Html.DropDownList("OrganisationId", Model.OrganisationIdSelect, htmlAttributes: new { @class = "browser-default" })
+                    @Html.ValidationMessageFor(model => model.OrganisationId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    @Html.LabelFor(model => model.DepartmentId, "Department")
+                    @Html.DropDownList("DepartmentId", Model.DepartmentIdSelect, htmlAttributes: new { @class = "browser-default" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    @Html.LabelFor(model => model.OfficeId, "Office")
+                    @Html.DropDownList("OfficeId", Model.OfficeIdSelect, htmlAttributes: new { @class = "browser-default" })
+                    @Html.ValidationMessageFor(model => model.OfficeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light" type="submit">Submit<i class="mdi-content-send right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+
+@Scripts.Render("~/bundles/knockout")
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/createEdit.js")"></script>
+    <script>
+        (function() {
+            var parameters = new CreateEditContactsParameters();
+            parameters.phoneNumberTypes = @Html.Raw((Model.PhoneNumberTypes).ToJson());
+            parameters.webLinkTypes = @Html.Raw((Model.WebLinkTypes).ToJson());
+
+            ko.applyBindings(new CreateEditContactsViewModel(parameters));
+        })();
+    </script>
+
+}

@@ -1,0 +1,50 @@
+﻿@model AddressBook.DataAccess.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "col s12"}))
+    {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="input-field col s12">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            <input data-val="true" data-val-required="The Remember me? field is required." id="RememberMe" name="RememberMe" type="checkbox" value="true">
+            @Html.LabelFor(m => m.RememberMe)
+        </div>
+    </div>*@
+    <div class="row">
+        <div class="col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Log In
+                <i class="mdi-content-send right"></i>
+            </button>
+        </div>
+    </div>
+    @*<p>
+        @Html.ActionLink("Register as a new user", "Register")
+    </p>*@
+    @* Enable this once you have account confirmation enabled for password reset functionality
+        <p>
+            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+        </p>*@
+    }
+</div>

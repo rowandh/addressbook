@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Book</title>
+    @*@Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")*@
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/materialize/materialize.css")"/>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Site.css")">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-social.css")">
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" placeholder="Find somebody by name, job title, department, location, or extension" data-bind="textInput: searchTerm" required>
+                        <label for="search"><i class="mdi-action-search"></i></label>
+                        <i class="mdi-navigation-close"></i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <div data-bind="foreach: groupedContacts">
+        <div class="row" data-bind="foreach: $data">
+
+            <div class="col s12 m6 l2">
+                <div class="card">
+                    <div class="card-image">
+                        <img data-bind="attr: { src: !!imageUrl ? imageUrl : '@Url.Content("~/Content/user.png")' }" />
+                        <div class="card-title card-title-search name-bg">
+                            <span data-bind="text: fullName"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-content">
+                        <a data-bind="text: title, click: function(data, event) { $root.searchTerm(data.title)}, attr: { title: 'Search for more people with the job title ' + title }"
+                           href="#"></a>
+                        in
+                        <a data-bind="text: location, click: function(data, event) { $root.searchTerm(data.location) }, attr: { title: 'Search for more people in the location ' + location }"
+                           href="#"></a>
+                        <a data-bind="text: department, click: function(data, event) { $root.searchTerm(data.department) }, attr: { title: 'Search for more people in the department ' + department }"
+                           href="#"></a>
+                        (<a data-bind="text: organisation, click: function(data, event) { $root.searchTerm(data.organisation) }, attr: { title: 'Search for more people in the organisation ' + organisation }" href="#"></a>)
+                        <ul>
+                            <li data-bind="visible: !!email"
+                                title="Email">
+                                <i class="tiny mdi-communication-email contact-icon"></i>
+                                <a data-bind="text: email, attr: { href: 'mailto:' + email }"></a>
+                            </li>
+                            <li data-bind="visible: !!phoneNumbers">
+                                <ul data-bind="foreach: phoneNumbers">
+                                    <li data-bind="attr: { title: phoneNumberType }">
+                                        <i data-bind="attr: { class: 'tiny contact-icon ' + $root.getIconClass(phoneNumberType) }"></i>
+                                        <span data-bind="text: phoneNumber"></span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul data-bind="visible: !!webLinks, foreach: webLinks" class="social-icons">
+                            <li class="social-icon">
+                                <a data-bind="attr: { href: url, class: 'btn btn-social-icon btn-sm btn-' + type.toLowerCase() }">
+                                    <i data-bind="attr: { class: 'fa fa-' + type.toLowerCase() }"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div class="card-action">
+                            <a data-bind="attr: { href: 'contacts/edit/' + id }">Edit</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-floating btn-large waves-effect waves-light red bottom-right" href="@Url.Action("Create", "Contacts")"><i class="mdi-content-add"></i></a>
+
+    <div class="row" data-bind="visible: contactsLoading">
+        <div class="col s6 offset-s3">
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+
+    @*<script src="~/Scripts/materialize/materialize.js"></script>*@
+
+    <script src="@Url.Content("~/Scripts/knockout-3.3.0.js")"></script>
+    <script src="@Url.Content("~/Scripts/sammy-0.7.5.js")"></script>
+    <script src="@Url.Content("~/Scripts/app.js")"></script>
+    <script>
+        (function() {
+            var contactsSearchViewModel = new ContactsSearchViewModel();
+
+            ko.applyBindings(contactsSearchViewModel);
+
+            // Infinite scroll
+            $(window).scroll(function () {
+                if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+                    if (contactsSearchViewModel) {
+                        contactsSearchViewModel.getNextPage();
+                    }
+                }
+            });
+        })();
+    </script>
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿@using System.IO
+@using System.Web.Hosting
+@model AddressBook.DataAccess.Models.Contact
+
+@{
+    Layout = "~/Views/Contacts/ContactsBase.cshtml";
+    ViewBag.Title = "Details of " + Model.FullName;
+}
+
+<div class="row">
+    @if (!string.IsNullOrWhiteSpace(Model.Image) && File.Exists(HostingEnvironment.MapPath("~/uploads/" + Model.Image)))
+    {
+        <img src="@Url.Content("~/uploads/" + Model.Image)" class="col s12 m2" width="150" alt="@Model.FullName"/>
+    }
+    <div class="col s12 m10">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <h4>@Model.FullName</h4>
+                </div>
+                <div class="col s12 m12 l12">
+                    @Html.DisplayFor(model => model.Title)
+                </div>
+                <div class="col s12 m12 l12">
+                    @Html.DisplayFor(model => model.Department.Name)
+                </div>
+                <div class="col s12 m12 l12">
+                    @Html.DisplayFor(model => model.Office.Name)
+                </div>
+                <div class="col s12 m12 l12">
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+                @foreach (var phone in Model.PhoneNumbers)
+                {
+                    <div class="col s12 m12 l12">
+                        @Html.DisplayFor(p => phone.PhoneNumber)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index", "Home")
+</p>

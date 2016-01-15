@@ -1,0 +1,42 @@
+﻿.contact-icon {
+    vertical-align: middle;
+}
+
+.social-icons {
+    list-style: none;
+}
+
+.social-icon {
+    display: inline;
+}
+
+.card-title-search {
+    bottom: 5px !important;
+    padding: 5px 10px !important;
+}
+
+.name-bg {
+    background-color: #808080;
+    background-color: rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+/*IE 11 hacks*/
+#search {
+    height: 64px;
+    display: inline-block;
+}
+
+.bottom-right {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+}
+
+.bottom-right-top {
+    position: fixed;
+    right: 0;
+    bottom: 90px;
+    margin: 30px;
+}

@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook", "AddressBook\AddressBook.csproj", "{E2378025-9A51-499A-9B42-039151A36B37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.DataAccess", "AddressBook.DataAccess\AddressBook.DataAccess.csproj", "{17BD2F4F-B686-436D-89CF-F41A61189C0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0BFA3B01-E80A-47F3-930E-ADCA51D6DA48}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook.Services", "AddressBook.Services\AddressBook.Services.csproj", "{13C43585-10AA-432E-9036-B73C282AC678}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2378025-9A51-499A-9B42-039151A36B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2378025-9A51-499A-9B42-039151A36B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2378025-9A51-499A-9B42-039151A36B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2378025-9A51-499A-9B42-039151A36B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BD2F4F-B686-436D-89CF-F41A61189C0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BD2F4F-B686-436D-89CF-F41A61189C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BD2F4F-B686-436D-89CF-F41A61189C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BD2F4F-B686-436D-89CF-F41A61189C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C43585-10AA-432E-9036-B73C282AC678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C43585-10AA-432E-9036-B73C282AC678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C43585-10AA-432E-9036-B73C282AC678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C43585-10AA-432E-9036-B73C282AC678}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
